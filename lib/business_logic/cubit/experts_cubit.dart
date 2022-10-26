@@ -14,25 +14,15 @@ class ExpertsCubit extends Cubit<ExpertsState> {
   getExperts() {
     emit(ExpertsLoading());
     expertsrepo.getExperts().then((experts) {
-      if (experts == []) {
-        emit(NoExperts());
-      } else {
-        emit(ExpertsAdded(experts, "", online_experts));
-      }
-      this.experts = experts;
-    });
-    return experts;
-  }
-
-  getonlineExperts() {
-    emit(ExpertsLoading());
-    expertsrepo.getinlineExperts().then((online_experts) {
-      if (experts == []) {
-        emit(NoExperts());
-      } else {
-        emit(ExpertsAdded(experts, "", online_experts));
-      }
-      this.experts = experts;
+      expertsrepo.getonlineExperts().then((online_exp) {
+        if (experts == []) {
+          emit(NoExperts());
+        } else {
+          emit(ExpertsAdded(experts, "", online_exp));
+        }
+        this.online_experts = online_exp;
+        this.experts = experts;
+      });
     });
     return experts;
   }

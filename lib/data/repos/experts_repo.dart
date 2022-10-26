@@ -15,7 +15,7 @@ class ExpertsRepo {
     return experts.map((trip) => Expert.fromJson(trip)).toList();
   }
 
-  Future<List<Expert>> getinlineExperts() async {
+  Future<List<Expert>> getonlineExperts() async {
     final experts = await expertsapi.getonlineExperts();
     if (experts == []) {
       return [];

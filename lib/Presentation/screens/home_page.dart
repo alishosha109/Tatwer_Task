@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           SizedBox(
-            height: 35.h,
+            height: 38.h,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 // shrinkWrap: true,
@@ -81,7 +81,10 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 fav_ids.contains(experts[index].id)
                                     ? InkWell(
-                                        child: Icon(Icons.favorite),
+                                        child: Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        ),
                                         onTap: () {
                                           BlocProvider.of<ExpertsCubit>(context)
                                               .addtofavs(
@@ -89,7 +92,10 @@ class _HomePageState extends State<HomePage> {
                                         },
                                       )
                                     : InkWell(
-                                        child: Icon(Icons.favorite_border),
+                                        child: Icon(
+                                          Icons.favorite,
+                                          color: Colors.grey,
+                                        ),
                                         onTap: () {
                                           BlocProvider.of<ExpertsCubit>(context)
                                               .addtofavs(
@@ -207,7 +213,6 @@ class _HomePageState extends State<HomePage> {
     bool loading = true;
 
     BlocProvider.of<ExpertsCubit>(context).getExperts();
-    BlocProvider.of<ExpertsCubit>(context).getonlineExperts();
     RefreshController _refreshController =
         RefreshController(initialRefresh: false);
 
@@ -228,7 +233,7 @@ class _HomePageState extends State<HomePage> {
         } else if (state is ExpertsAdded) {
           experts = state.experts;
           online_experts = state.online_experts;
-          if (fav_ids.contains(state.id)) {
+          if (fav_ids.contains(state.id) && fav_ids != []) {
             fav_ids.remove(state.id);
           } else {
             fav_ids.add(state.id);
